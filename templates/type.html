@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>monkeyboard</h1>
+
+  <div id="tabs"></div>
+  <button id="addTab">+ add monkey</button>
+  <button id="pauseAll">pause all</button>
+  <button id="saveBtn">save progress</button>
+
+  <hr>
+
+  <div class="stats-section">
+    <b>active monkey</b>
+    <div>total words: <span id="totalWords">0</span></div>
+    <div>streak: <span id="streak">0</span></div>
+    <div>streak words: <span id="streakWords"></span></div>
+    <div>best streak: <span id="bestStreak">0</span></div>
+    <div>best streak words: <span id="bestStreakWords"></span></div>
+  </div>
+
+  <div class="stats-section">
+    <b>combined (all monkeys + saved)</b>
+    <div>total words: <span id="combinedTotal">0</span></div>
+    <div>best streak: <span id="combinedBestStreak">0</span></div>
+    <div>best streak words: <span id="combinedBestStreakWords"></span></div>
+  </div>
+
+  <div id="container"></div>
+
+  <script src="/static/js/main.js"></script>
+{% endblock %}

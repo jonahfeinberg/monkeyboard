@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>achievements</h1>
+  <p id="ach-counter">loading…</p>
+  <p id="ach-warning" class="ach-warning" hidden>
+    you're not signed in, unlocked achievements live only in this browser and reset if you clear it.
+    <a href="/login">sign in</a> to keep them.
+  </p>
+
+  <div id="ach-grid" class="ach-grid"></div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!window.MB_ACH) return;
+      const grid    = document.getElementById("ach-grid");
+      const counter = document.getElementById("ach-counter");
+      const warn    = document.getElementById("ach-warning");
+      MB_ACH.collect().then(m => {
+        if (!m.loggedIn) warn.hidden = false;
+        MB_ACH.check(m);
+        MB_ACH.render(m, grid, counter);
+      });
+    });
+  </script>
+{% endblock %}

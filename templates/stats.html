@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>stats</h1>
+
+  <div class="scope-toggle">
+    <a href="?scope=me"     class="scope-option {% if scope == 'me' %}active{% endif %}">my stats</a>
+    <a href="?scope=global" class="scope-option {% if scope == 'global' %}active{% endif %}">global stats</a>
+  </div>
+
+  <hr>
+
+  {% if personal %}
+  <div class="stats-section">
+    <b>{{ personal.user_name }}</b>
+    <table>
+      <tbody>
+        <tr><td>total words</td><td>{{ personal.total_words }}</td></tr>
+        <tr><td>unique words</td><td>{{ personal.unique_words }}</td></tr>
+        <tr><td>longest streak</td><td>{{ personal.longest_streak }}</td></tr>
+        <tr><td>longest streak words</td><td>{{ personal.longest_streak_words }}</td></tr>
+        <tr><td>longest word</td><td>{{ personal.longest_word }} ({{ personal.longest_word_len }} letters)</td></tr>
+        <tr><td>best same-word run</td><td>{{ personal.best_same_run_word }} x{{ personal.best_same_run }}</td></tr>
+        <tr><td>most typed word</td><td>{{ personal.most_common_word }} ({{ personal.most_common_count }} times)</td></tr>
+        <tr><td>avg word length</td><td>{{ personal.avg_word_length }} letters</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  {% endif %}
+
+  <div class="stats-section">
+    <b>word length histogram</b>
+    <table>
+      <thead>
+        <tr><th>length</th><th>count</th><th>bar</th></tr>
+      </thead>
+      <tbody>
+        {% for row in histogram %}
+        <tr>
+          <td>{{ row.length }}</td>
+          <td>{{ row.count }}</td>
+          <td>
+            <div class="bar-track"><div class="bar" style="width: {{ row.percent }}%"></div></div>
+            <span class="bar-pct">{{ row.percent }}%</span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  {% if scope == 'me' %}
+  <button id="resetBtn">reset all stats</button>
+
+  <div id="reset-modal" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <h2>Reset all stats?</h2>
+      <p>This permanently clears your saved words, streaks, and totals. This can't be undone.</p>
+      <div class="modal-actions">
+        <button id="reset-cancel">Cancel</button>
+        <button id="reset-confirm">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resetBtn   = document.getElementById("resetBtn");
+    const resetModal = document.getElementById("reset-modal");
+    const rCancel    = document.getElementById("reset-cancel");
+    const rConfirm   = document.getElementById("reset-confirm");
+
+    document.body.appendChild(resetModal);
+
+    function rOnKey(e) { if (e.key === "Escape") rClose(); }
+    function rOpen()  { resetModal.hidden = false; rCancel.focus(); document.addEventListener("keydown", rOnKey); }
+    function rClose() { resetModal.hidden = true;  document.removeEventListener("keydown", rOnKey); resetBtn.focus(); }
+
+    resetBtn.addEventListener("click", rOpen);
+    rCancel.addEventListener("click", rClose);
+    resetModal.addEventListener("click", e => { if (e.target === resetModal) rClose(); });
+    rConfirm.addEventListener("click", () => {
+      fetch("/reset", { method: "POST" })
+        .then(r => r.json())
+        .then(() => {
+          ["monkeys", "activeMonkeyId", "sessionWordsEarned", "sessionAllWords", "unlockedAchievements"]
+            .forEach(k => localStorage.removeItem(k));
+          window.location.reload();
+        });
+    });
+  </script>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>your words</h1>
+  <p>{{ words | length }} unique words</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>word</th>
+        <th>count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for word, count in words %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ word }}</td>
+        <td>{{ count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

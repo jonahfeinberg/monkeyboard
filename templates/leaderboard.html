@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>leaderboard</h1>
+
+  <form method="get">
+    <label>sort by:
+      <select name="sort" onchange="this.form.submit()">
+        <option value="word_amount"    {% if sort == "word_amount"    %}selected{% endif %}>most total words</option>
+        <option value="longest_streak" {% if sort == "longest_streak" %}selected{% endif %}>longest streak</option>
+        <option value="longest_word"   {% if sort == "longest_word"   %}selected{% endif %}>longest word</option>
+        <option value="best_same_run"  {% if sort == "best_same_run"  %}selected{% endif %}>most same word in a row</option>
+        <option value="word_count"     {% if sort == "word_count"     %}selected{% endif %}>most of a specific word</option>
+        <option value="unique_words"   {% if sort == "unique_words"   %}selected{% endif %}>most unique words</option>
+      </select>
+    </label>
+
+    {% if sort == "word_count" %}
+    <input type="text" name="word" value="{{ filter_word }}" placeholder="enter word to filter">
+    <button type="submit">go</button>
+    {% endif %}
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>total words</th>
+        <th>longest streak</th>
+        <th>longest word</th>
+        <th>best same-word run</th>
+        {% if sort == "word_count" and filter_word %}
+        <th>"{{ filter_word }}" count</th>
+        {% endif %}
+        <th>unique words</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i, row in enumerate(leaderboard) %}
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ row.user_name }}</td>
+        <td>{{ row.word_amount }}</td>
+        <td>{{ row.longest_streak }}</td>
+        <td>{{ row.longest_word }}</td>
+        <td>{{ row.best_same_run_word }} x{{ row.best_same_run }}</td>
+        {% if sort == "word_count" and filter_word %}
+        <td>{{ row.word_count }}</td>
+        {% endif %}
+        <td>{{ row.unique_words }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!--following script is Claude-->
+  <script>
+    // refresh the table every 5 seconds without reloading the page
+    setInterval(() => {
+      fetch(window.location.href)
+        .then(r => r.text())
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const newTable = doc.querySelector("table");
+          const oldTable = document.querySelector("table");
+          if (newTable && oldTable) oldTable.replaceWith(newTable);
+        });
+    }, 5000);
+  </script>
+{% endblock %}

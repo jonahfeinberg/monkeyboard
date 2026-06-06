@@ -1,0 +1,40 @@
+monkeyboard credits
+
+fonts (google fonts):
+- IM Fell English SC
+- IM Fell English
+- Special Elite
+- Courier Prime
+
+logo:
+https://www.pinterest.com/pin/vintage-monkey-type-writer--53621051808648273/
+
+css:
+- paper texture overlay - erik ritter
+  https://medium.com/@erikritter/css-snippets-add-a-texture-overlay-to-an-entire-webpage-b0bfdfd02c45
+- wobbly border-radius technique
+
+sound:
+- mechvibes sound packs - https://mechvibes.com/sound-packs
+- word.ogg, achievement.ogg, purple.ogg, Vine.mp3 - [sources?]
+- web audio api
+
+site stuff:
+- infinite monkey theorem wikipedia (linked on landing page)
+
+apis:
+- google oauth
+- cs50.dev / github codespaces
+
+data files:
+- words.txt - [https://github.com/borkabrak/markov/blob/master/README.md + chatgpt python script]
+- names.txt - [claude]
+
+references:
+- authlib google login docs
+- mdn web docs
+
+ai:
+- claude
+- gemini
+- chatgpt
