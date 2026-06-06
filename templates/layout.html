@@ -14,7 +14,8 @@
 
     <nav>
       <a href="/" class="brand">monkeyboard<span class="cursor">|</span></a>
-      <div class="nav-links">
+      <button class="burger" id="burgerBtn" aria-label="menu" aria-expanded="false">&#9776;</button>
+      <div class="nav-links" id="navLinks">
         {% if session.get('user_id') %}
           <span class="nav-user">{{ session.get('user_name') }}</span>
           <span class="sep">|</span>
@@ -41,7 +42,7 @@
     </main>
 
     <footer>
-      <span>Developed by <a href="https://jonahfeinberg.com">Jonah Feinberg</a></span>
+      <span>Developed by Jonah Feinberg</span>
     </footer>
 
     {% if session.get('user_id') %}
@@ -56,61 +57,60 @@
       </div>
     </div>
     <div id="deleteall-modal" class="modal-overlay" hidden>
-  <div class="modal-box">
-      <h2>kill all the monkeys!?</h2>
-      <p>This clears every monkey from the cage. Your saved word totals won't change.</p>
-      <div class="modal-actions">
-        <button id="deleteall-cancel">cancel</button>
-        <button id="deleteall-confirm">delete all</button>
+      <div class="modal-box">
+        <h2>kill all the monkeys!?</h2>
+        <p>This clears every monkey from the cage. Your saved word totals won't change.</p>
+        <div class="modal-actions">
+          <button id="deleteall-cancel">cancel</button>
+          <button id="deleteall-confirm">delete all</button>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div id="settings-modal" class="modal-overlay" hidden>
-  <div class="modal-box settings-box">
-    <h2>settings</h2>
-
-    <div class="setting-row">
-        <label for="set-sound">sound</label>
-        <input type="checkbox" id="set-sound" class="toggle" data-setting="sound">
-      </div>
-      <div class="setting-row">
-        <label for="set-keyClacks">key clacks</label>
-        <input type="checkbox" id="set-keyClacks" class="toggle" data-setting="keyClacks">
-      </div>
-      <div class="setting-row">
-        <label for="set-streakTone">streak tone</label>
-        <input type="checkbox" id="set-streakTone" class="toggle" data-setting="streakTone">
-      </div>
-      <div class="setting-row">
-        <label for="set-achievementSound">achievement sound</label>
-        <input type="checkbox" id="set-achievementSound" class="toggle" data-setting="achievementSound">
-      </div>
-      <div class="setting-row">
-        <label for="set-achievementToasts">achievement pop-ups</label>
-        <input type="checkbox" id="set-achievementToasts" class="toggle" data-setting="achievementToasts">
-      </div>
-      <div class="setting-row">
-        <label for="set-keyboardSound">keyboard sound</label>
-        <select id="set-keyboardSound">
-          <option value="crystal-purple">Crystal Purple</option>
-          <option value="cherrymx-blue">Cherry MX Blue</option>
-          <option value="cherrymx-brown">Cherry MX Brown</option>
-          <option value="cherrymx-red">Cherry MX Red</option>
-          <option value="Model F XT">Model F XT</option>
-        </select>
-      </div>
-      <div class="setting-row">
-        <a class="logout" href="/logout">sign out</a>
-      </div>
-      <div class="modal-actions">
-
-        <button style="margin-top: 10px;" id="settings-close">done</button>
-      </div>
-    </div>
-  </div>
-
     {% endif %}
+
+    <div id="settings-modal" class="modal-overlay" hidden>
+      <div class="modal-box settings-box">
+        <h2>settings</h2>
+        <div class="setting-row">
+          <label for="set-sound">sound</label>
+          <input type="checkbox" id="set-sound" class="toggle" data-setting="sound">
+        </div>
+        <div class="setting-row">
+          <label for="set-keyClacks">key clacks</label>
+          <input type="checkbox" id="set-keyClacks" class="toggle" data-setting="keyClacks">
+        </div>
+        <div class="setting-row">
+          <label for="set-streakTone">streak tone</label>
+          <input type="checkbox" id="set-streakTone" class="toggle" data-setting="streakTone">
+        </div>
+        <div class="setting-row">
+          <label for="set-achievementSound">achievement sound</label>
+          <input type="checkbox" id="set-achievementSound" class="toggle" data-setting="achievementSound">
+        </div>
+        <div class="setting-row">
+          <label for="set-achievementToasts">achievement pop-ups</label>
+          <input type="checkbox" id="set-achievementToasts" class="toggle" data-setting="achievementToasts">
+        </div>
+        <div class="setting-row">
+          <label for="set-keyboardSound">keyboard sound</label>
+          <select id="set-keyboardSound">
+            <option value="crystal-purple">Crystal Purple</option>
+            <option value="cherrymx-blue">Cherry MX Blue</option>
+            <option value="cherrymx-brown">Cherry MX Brown</option>
+            <option value="cherrymx-red">Cherry MX Red</option>
+            <option value="Model F XT">Model F XT</option>
+          </select>
+        </div>
+        {% if session.get('user_id') %}
+        <div class="setting-row">
+          <a class="logout" href="/logout">sign out</a>
+        </div>
+        {% endif %}
+        <div class="modal-actions">
+          <button style="margin-top: 10px;" id="settings-close">done</button>
+        </div>
+      </div>
+    </div>
 
     <div class="paperOverlay"></div>
     <div class="paperOverlay"></div>
