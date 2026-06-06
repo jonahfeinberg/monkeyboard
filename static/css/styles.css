@@ -326,6 +326,32 @@ main > h1 { margin-bottom: 1.6rem; padding-bottom: 0.5rem; border-bottom: 1px so
 .toggle:checked { background: var(--ink-muted); }
 .toggle:checked::after { left: 21px; background: var(--parchment); }
 
+/* Burger button — hidden on desktop */
+.burger {
+  display: none; background: none; border: none; padding: 0.2rem 0.4rem;
+  color: var(--parchment); font-size: 1.4rem; cursor: pointer; line-height: 1;
+  opacity: 0.85; transition: opacity 0.15s;
+}
+.burger:hover { opacity: 1; }
+
+/* Mobile nav */
+@media (max-width: 640px) {
+  .burger { display: block; }
+  nav { flex-wrap: wrap; padding: 0.75rem 1.2rem; gap: 0; }
+  .brand { flex: 1; }
+  .nav-links {
+    display: none; width: 100%; flex-direction: column; align-items: flex-start;
+    gap: 0; padding: 0.6rem 0 0.8rem; border-top: 1px solid rgba(232,212,168,0.15);
+    margin-top: 0.5rem;
+  }
+  .nav-links.open { display: flex; }
+  .sep { display: none; }
+  .nav-links a { padding: 0.45rem 0.25rem; font-size: 0.9rem; opacity: 0.85; }
+  .nav-user { padding: 0.45rem 0.25rem; font-size: 1rem; }
+  main { padding: 2rem 1.2rem 4rem; }
+  .settings-box { max-width: 100%; }
+}
+
 /* Reduce motion */
 .reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
   animation: none !important; transition: none !important; scroll-behavior: auto !important;

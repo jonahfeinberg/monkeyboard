@@ -1,4 +1,20 @@
 (function () {
+  const burger  = document.getElementById("burgerBtn");
+  const navLinks = document.getElementById("navLinks");
+  if (!burger || !navLinks) return;
+  burger.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  });
+  navLinks.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    });
+  });
+})();
+
+(function () {
   const logoutLink = document.querySelector('a.logout[href="/logout"]');
   const modal      = document.getElementById("logout-modal");
   if (!logoutLink || !modal) return;
