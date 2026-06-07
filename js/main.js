@@ -32,8 +32,8 @@
 // universal settings
 (function () {
   const DEFAULTS = {
-    sound: true,
     keyClacks: true,
+    sound: true,
     streakTone: true,
     achievementSound: true,
     achievementToasts: true,
