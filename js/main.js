@@ -32,12 +32,11 @@
 // ! universal settings !
 (function () {
   const DEFAULTS = {
-    sound: false,
+    sound: true,
     keyClacks: true,
     streakTone: true,
     achievementSound: true,
     achievementToasts: true,
-    reduceMotion: false,
     keyboardSound: "crystal-purple"
   };
 
