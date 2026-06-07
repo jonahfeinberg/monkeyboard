@@ -29,7 +29,7 @@
   });
 })();
 
-// ! universal settings !
+// universal settings
 (function () {
   const DEFAULTS = {
     sound: true,
