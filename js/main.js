@@ -29,11 +29,11 @@
   });
 })();
 
-// universal settings
+// ! universal settings !
 (function () {
   const DEFAULTS = {
-    keyClacks: true,
     sound: true,
+    keyClacks: true,
     streakTone: true,
     achievementSound: true,
     achievementToasts: true,
