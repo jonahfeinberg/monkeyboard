@@ -1,20 +1,4 @@
 (function () {
-  const burger  = document.getElementById("burgerBtn");
-  const navLinks = document.getElementById("navLinks");
-  if (!burger || !navLinks) return;
-  burger.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("open");
-    burger.setAttribute("aria-expanded", open);
-  });
-  navLinks.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      burger.setAttribute("aria-expanded", "false");
-    });
-  });
-})();
-
-(function () {
   const logoutLink = document.querySelector('a.logout[href="/logout"]');
   const modal      = document.getElementById("logout-modal");
   if (!logoutLink || !modal) return;
@@ -48,7 +32,7 @@
 // ! universal settings !
 (function () {
   const DEFAULTS = {
-    sound: false,
+    sound: true,
     keyClacks: true,
     streakTone: true,
     achievementSound: true,
@@ -292,17 +276,19 @@ window.MB_ACH = (function () {
   catch { unlocked = new Set(); }
   function persist(){ localStorage.setItem("unlockedAchievements", JSON.stringify([...unlocked])); }
 
-  function metrics(words, totalWords, bestStreak, monkeyCount) {
-    let longest = 0, bestRun = 0, run = 0, last = null;
+  function metrics(words, totalWords, bestStreak, monkeyCount, bestSameRun) {
+    // NOTE: bestSameRun must come from the live tracker (which respects gibberish
+    // gaps between words); it can't be recomputed from this flattened word list,
+    // since gibberish has already been stripped, making non-adjacent duplicates
+    // (e.g. "the oiaoa the") look like a real run.
+    let longest = 0;
     for (const w of words) {
       if (w.length > longest) longest = w.length;
-      run = (w === last) ? run + 1 : 1; last = w;
-      if (run > bestRun) bestRun = run;
     }
     return {
       totalWords: totalWords || 0,
       bestStreak: bestStreak || 0,
-      bestSameRun: bestRun,
+      bestSameRun: bestSameRun || 0,
       longestWordLen: longest,
       uniqueWords: new Set(words).size,
       monkeyCount: monkeyCount || 0,
@@ -316,13 +302,14 @@ window.MB_ACH = (function () {
     const sessionEarned = parseInt(localStorage.getItem("sessionWordsEarned") || "0");
     try { monkeyList = JSON.parse(localStorage.getItem("monkeys") || "[]"); } catch {}
     const localBest = monkeyList.reduce((b,m)=>Math.max(b, m.bestStreak||0), 0);
+    const localBestRun = monkeyList.reduce((b,m)=>Math.max(b, m.bestSameRun||0), 0);
     return fetch("/me").then(r=>r.json()).then(data => {
       const s = (data.logged_in && data.stats) ? data.stats : null;
       const serverWords = s && s.all_words ? s.all_words.split(/\s+/).filter(Boolean) : [];
       const words = serverWords.concat(sessionWords);
       const total = (s ? s.word_amount : 0) + sessionEarned;
       const best  = Math.max(localBest, s ? s.longest_streak : 0);
-      const m = metrics(words, total, best, monkeyList.length);
+      const m = metrics(words, total, best, monkeyList.length, localBestRun);
       m.loggedIn = !!data.logged_in;
       return m;
     });
@@ -333,7 +320,7 @@ window.MB_ACH = (function () {
       if (!unlocked.has(a.id) && a.value(m) >= a.goal) {
         unlocked.add(a.id); persist();
         if (window.mbSettings?.achievementToasts !== false) toast(a);
-        if (window.mbSettings?.achievementSound  !== false) chime(a);
+        if (window.mbSettings?.sound && window.mbSettings?.achievementSound !== false) chime(a);
       }
     }
   }
@@ -437,6 +424,7 @@ function saveMonkeysToStorage() {
     counter: m.counter,
     bestStreak: m.bestStreak,
     bestStreakWords: m.bestStreakWords,
+    bestSameRun: m.bestSameRun,
     allWords: m.allWords,
     speed: m.speed,
   }));
@@ -488,9 +476,9 @@ function addMonkey() {
   const monkey = createMonkey(id, name);
   monkeys.push(monkey);
   saveMonkeysToStorage();
+  startMonkey(monkey);
   renderTabs();
   switchTo(id);
-  startMonkey(monkey);
 }
 
 function removeMonkey(id) {
@@ -665,7 +653,8 @@ function renderStats() {
 
   if (window.MB_ACH) {
     const words = (serverBaseline.all_words_list || []).concat(sessionAllWords);
-    MB_ACH.check(MB_ACH.metrics(words, combinedTotal, combinedBest, monkeys.length));
+    const bestSameRun = monkeys.reduce((b, m) => Math.max(b, m.bestSameRun || 0), 0);
+    MB_ACH.check(MB_ACH.metrics(words, combinedTotal, combinedBest, monkeys.length, bestSameRun));
   }
 }
 
@@ -1023,6 +1012,7 @@ fetch("/static/words.txt")
         monkey.counter        = s.counter || 0;
         monkey.bestStreak     = s.bestStreak || 0;
         monkey.bestStreakWords = s.bestStreakWords || [];
+        monkey.bestSameRun    = s.bestSameRun || 0;
         monkey.allWords       = s.allWords || [];
         monkey.speed          = s.speed !== undefined ? s.speed : 20;
         monkeys.push(monkey);
