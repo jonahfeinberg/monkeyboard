@@ -37,6 +37,7 @@
     streakTone: true,
     achievementSound: true,
     achievementToasts: true,
+    reduceMotion: false,
     keyboardSound: "crystal-purple"
   };
 
