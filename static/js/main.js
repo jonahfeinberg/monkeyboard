@@ -29,7 +29,7 @@
   });
 })();
 
-// ! universal settings !
+// universal settings !!!
 (function () {
   const DEFAULTS = {
     sound: true,
@@ -68,7 +68,7 @@
       apply();
     });
   });
-
+  
   const soundSelect = document.getElementById("set-keyboardSound");
 
   if (soundSelect) {
@@ -90,7 +90,7 @@
   modal.addEventListener("click", e => { if (e.target === modal) close(); });
 })();
 
-// ! achievements !
+// achievements !! (written by CLAUDE, format written by me)
 window.MB_ACH = (function () {
   // registry
   const LIST = [
@@ -276,6 +276,7 @@ window.MB_ACH = (function () {
   catch { unlocked = new Set(); }
   function persist(){ localStorage.setItem("unlockedAchievements", JSON.stringify([...unlocked])); }
 
+  // CLAUDE
   function metrics(words, totalWords, bestStreak, monkeyCount, bestSameRun) {
     // NOTE: bestSameRun must come from the live tracker (which respects gibberish
     // gaps between words); it can't be recomputed from this flattened word list,
@@ -400,7 +401,6 @@ let serverBaseline = {
   all_words_list: [],
 };
 
-// dom elements
 const tabsEl = document.getElementById("tabs");
 const monkeyCountEl = document.getElementById("monkeyCount");
 const addTabBtn = document.getElementById("addTab");
@@ -416,7 +416,7 @@ const combinedBestStreakWordsEl = document.getElementById("combinedBestStreakWor
 
 let namesList = [];
 
-// local storage
+// local storage !!
 
 function saveMonkeysToStorage() {
   const data = monkeys.map(m => ({
@@ -443,7 +443,7 @@ function loadMonkeysFromStorage() {
   }
 }
 
-// monkey objects
+// monkey objs
 
 function createMonkey(id, name) {
   return {
@@ -508,7 +508,7 @@ function switchTo(id) {
   if (monkey) renderMonkeyOutput(monkey);
 }
 
-// tab ui
+// tab ui stuff (help bugfixing from CLAUDE)
 
 let editingMonkeyId = null;
 
@@ -613,7 +613,7 @@ function renderTabs() {
   }
 }
 
-// stats display
+// stats display (https://www.youtube.com/watch?v=qZggyrjELTM)
 
 function clearStats() {
   totalWordsEl.textContent = "0";
@@ -684,12 +684,12 @@ function checkRecentWords(monkey) {
       monkey.streak = (monkey.lastMatchCount - 1 === monkey.lastWordMatchIndex) ? monkey.streak + 1 : 1;
       monkey.lastWordMatchIndex = monkey.lastMatchCount - 1;
       monkey.streakWords = monkey.streak === 1 ? [word] : [...monkey.streakWords, word];
-      if (monkey.id === activeMonkeyId) playStreakTone(monkey.streak);  // CLAUDE: streak tone
+      if (monkey.id === activeMonkeyId) playStreakTone(monkey.streak);  // CLAUDE
       if (monkey.streak > monkey.bestStreak) {
         monkey.bestStreak = monkey.streak;
         monkey.bestStreakWords = [...monkey.streakWords];
       }
-      // same-word run: index must be exactly +1 from the last real word, no gaps allowed
+      // same word run CLAUDE
       if (word === monkey.lastSameRunWord && matchIdx === monkey.lastSameRunIdx + 1) {
         monkey.currentSameRun++;
         if (monkey.currentSameRun > 1) console.log(`[same-run] "${word}" x${monkey.currentSameRun} (matchIdx ${monkey.lastSameRunIdx} → ${matchIdx})`);
@@ -746,7 +746,7 @@ function startMonkey(monkey) {
   tickMonkey(monkey);
 }
 
-// server sync
+// server sync CLAUDE help
 
 function buildSavePayload() {
   const combinedTotal = serverBaseline.total_words + sessionWordsEarned;
@@ -786,7 +786,7 @@ window.beforeSignOut = () => {
   }
 };
 
-// ! CLAUDE: audio + sound ! // https://mechvibes.com/sound-packs
+// CLAUDE, https://mechvibes.com/sound-packs
 let audioCtx = null;
 function ensureAudio() {
   const AC = window.AudioContext || window.webkitAudioContext;
@@ -799,8 +799,6 @@ function ensureAudio() {
 
 document.addEventListener("click", ensureAudio);
 document.addEventListener("keydown", ensureAudio);
-
-// CLAUDE: sound (key clack = mechvibes sound pack; streak tone = synthesized)
 
 function getSoundPaths() {
   const pack = window.mbSettings?.keyboardSound || "crystal-purple";
@@ -950,7 +948,7 @@ saveBtn.addEventListener("click", () => {
 
 addTabBtn.addEventListener("click", () => { ensureAudio(); addMonkey(); });
 
-// delete-all confirmation
+// delete-all conf
 function deleteAllMonkeys() {
   monkeys.forEach(m => clearTimeout(m.timeoutHandle));
   monkeys = [];
