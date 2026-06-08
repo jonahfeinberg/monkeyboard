@@ -35,6 +35,6 @@ references:
 - mdn web docs
 
 ai:
-- claude
-- gemini
-- chatgpt
+- claude for bugfixes and some js where I didn't understand how to do something (all marked by comments in code labeled CLAUDE)
+- gemini for style ideas and setting up flask (prompts were specifically: "How do I set up flask? Give me links/example code I can look at for a blank flask website?" "Do the same for a SQL." "Take a look at this css, js, and html. What suggestions do you have?"
+- chatgpt for monkey namelist (prompt lost)
