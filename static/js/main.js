@@ -196,7 +196,7 @@ window.MB_ACH = (function () {
     { id:"egg_map", tier:"bronze", name:"Cartographer",       desc:"A monkey types \"map\".", value:m=>m.words.has("map")?1:0, goal:1 },
     { id:"egg_hug", tier:"bronze", name:"Free Hugs",          desc:"A monkey types \"hug\".", value:m=>m.words.has("hug")?1:0, goal:1 },
     { id:"egg_yes", tier:"bronze", name:"Affirmative",        desc:"A monkey types \"yes\".", value:m=>m.words.has("yes")?1:0, goal:1 },
-    { id:"egg_yes", tier:"bronze", name:"Happy June!",        desc:"A monkey types \"yes\".", value:m=>m.words.has("gay")?1:0, goal:1 },
+    { id:"gay_yes", tier:"bronze", name:"Happy June!",        desc:"A monkey types \"gay\".", value:m=>m.words.has("gay")?1:0, goal:1 },
 
     // word eggs: medium (rare)
     { id:"egg_banana", tier:"silver", name:"Snack Break",        desc:"A monkey types \"banana\".", value:m=>m.words.has("banana")?1:0, goal:1 },
@@ -402,6 +402,7 @@ let serverBaseline = {
 
 // dom elements
 const tabsEl = document.getElementById("tabs");
+const monkeyCountEl = document.getElementById("monkeyCount");
 const addTabBtn = document.getElementById("addTab");
 const containerEl = document.getElementById("container");
 const totalWordsEl = document.getElementById("totalWords");
@@ -512,6 +513,7 @@ function switchTo(id) {
 let editingMonkeyId = null;
 
 function renderTabs() {
+  if (monkeyCountEl) monkeyCountEl.textContent = monkeys.length;
   tabsEl.innerHTML = "";
   if (monkeys.length === 0) {
     const empty = document.createElement("span");
