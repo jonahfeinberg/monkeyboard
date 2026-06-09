@@ -101,17 +101,21 @@ window.MB_ACH = (function () {
     { id:"words_250",  tier:"bronze", name:"Talkative",                desc:"Reach 250 total words.",       value:m=>m.totalWords, goal:250 },
     { id:"words_500",  tier:"bronze", name:"Motormouth",               desc:"Reach 500 total words.",       value:m=>m.totalWords, goal:500 },
     { id:"words_750",  tier:"bronze", name:"Logorrhea",                desc:"Reach 750 total words.",       value:m=>m.totalWords, goal:750 },
-    { id:"words_1k",   tier:"silver", name:"Novelist Monkey",          desc:"Reach 1,000 total words.",     value:m=>m.totalWords, goal:1000 },
-    { id:"words_1500", tier:"silver", name:"Prolific",                 desc:"Reach 1,500 total words.",     value:m=>m.totalWords, goal:1500 },
-    { id:"words_2500", tier:"silver", name:"Ghostwriter",             desc:"Reach 2,500 total words.",     value:m=>m.totalWords, goal:2500 },
+    { id:"words_1k",   tier:"bronze", name:"Novelist Monkey",          desc:"Reach 1,000 total words.",     value:m=>m.totalWords, goal:1000 },
+    { id:"words_1500", tier:"bronze", name:"Prolific",                 desc:"Reach 1,500 total words.",     value:m=>m.totalWords, goal:1500 },
+    { id:"words_2500", tier:"bronze", name:"Ghostwriter",             desc:"Reach 2,500 total words.",     value:m=>m.totalWords, goal:2500 },
     { id:"words_5k",   tier:"silver", name:"Word Hoarder",            desc:"Reach 5,000 total words.",     value:m=>m.totalWords, goal:5000 },
     { id:"words_7500", tier:"silver", name:"Verbose",                  desc:"Reach 7,500 total words.",     value:m=>m.totalWords, goal:7500 },
-    { id:"words_10k",  tier:"gold",   name:"Bardcore",                desc:"Reach 10,000 total words.",    value:m=>m.totalWords, goal:10000 },
-    { id:"words_15k",  tier:"gold",   name:"Graphomania",             desc:"Reach 15,000 total words.",    value:m=>m.totalWords, goal:15000 },
-    { id:"words_25k",  tier:"gold",   name:"Filibuster",              desc:"Reach 25,000 total words.",    value:m=>m.totalWords, goal:25000 },
-    { id:"words_50k",  tier:"gold",   name:"Touch Grass",             desc:"Reach 50,000 total words.",    value:m=>m.totalWords, goal:50000 },
-    { id:"words_75k",  tier:"gold",   name:"Why Are You Like This",   desc:"Reach 75,000 total words.",    value:m=>m.totalWords, goal:75000 },
+    { id:"words_10k",  tier:"silver",   name:"Bardcore",                desc:"Reach 10,000 total words.",    value:m=>m.totalWords, goal:10000 },
+    { id:"words_15k",  tier:"silver",   name:"Graphomania",             desc:"Reach 15,000 total words.",    value:m=>m.totalWords, goal:15000 },
+    { id:"words_25k",  tier:"silver",   name:"Filibuster",              desc:"Reach 25,000 total words.",    value:m=>m.totalWords, goal:25000 },
+    { id:"words_50k",  tier:"silver",   name:"Touch Grass",             desc:"Reach 50,000 total words.",    value:m=>m.totalWords, goal:50000 },
+    { id:"words_75k",  tier:"silver",   name:"Why Are You Like This",   desc:"Reach 75,000 total words.",    value:m=>m.totalWords, goal:75000 },
     { id:"words_100k", tier:"gold",   name:"Six Figures of Nonsense", desc:"Reach 100,000 total words.",   value:m=>m.totalWords, goal:100000 },
+    { id:"words_250k", tier:"gold",   name:"Quarter Waster", desc:"Reach 250,000 total words.",   value:m=>m.totalWords, goal:250000 },
+    { id:"words_500k", tier:"gold",   name:"Get a hobby please", desc:"Reach 500,000 total words.",   value:m=>m.totalWords, goal:500000 },
+    { id:"words_1m", tier:"gold",   name:"Monopoly...?", desc:"Reach 1,000,000 total words.",   value:m=>m.totalWords, goal:1000000 },
+    { id:"words_10m", tier:"gold",   name:"Okay you really need to stop", desc:"Reach 10,000,000 total words.",   value:m=>m.totalWords, goal:10000000 },
 
     // streaks
     { id:"streak_3",   tier:"bronze", name:"Hat Trick",               desc:"Hit a 3-word streak.",   value:m=>m.bestStreak, goal:3 },
@@ -159,7 +163,7 @@ window.MB_ACH = (function () {
     { id:"monkeys_2",  tier:"bronze", name:"Buddy System",     desc:"Run 2 monkeys at once.",  value:m=>m.monkeyCount, goal:2 },
     { id:"monkeys_5",  tier:"bronze", name:"Gimme five!",            desc:"Run 5 monkeys at once.",  value:m=>m.monkeyCount, goal:5 },
     { id:"monkeys_10", tier:"silver", name:"Full Cage",        desc:"Run 10 monkeys at once.", value:m=>m.monkeyCount, goal:10 },
-    { id:"monkeys_15", tier:"silver", name:"Infestation",      desc:"Run 15 monkeys at once.", value:m=>m.monkeyCount, goal:20 },
+    { id:"monkeys_20", tier:"silver", name:"Infestation",      desc:"Run 20 monkeys at once.", value:m=>m.monkeyCount, goal:20 },
     { id:"monkeys_30", tier:"silver", name:"This is a mob",       desc:"Run 30 monkeys at once.", value:m=>m.monkeyCount, goal:30 },
     { id:"monkeys_50", tier:"silver", name:"Monkey go brrrr",    desc:"Run 50 monkeys at once.", value:m=>m.monkeyCount, goal:50 },
 
@@ -946,7 +950,13 @@ saveBtn.addEventListener("click", () => {
   .catch(() => mbToast("Save failed"));
 });
 
-addTabBtn.addEventListener("click", () => { ensureAudio(); addMonkey(); });
+addTabBtn.addEventListener("click", () => {
+  ensureAudio();
+  const before = addTabBtn.getBoundingClientRect().top; // CLAUDE: keep add button under cursor on wrap
+  addMonkey();
+  const after = addTabBtn.getBoundingClientRect().top;
+  window.scrollBy(0, after - before);
+});
 
 // delete-all conf
 function deleteAllMonkeys() {
