@@ -29,12 +29,6 @@
   });
 })();
 
-confirmBtn.addEventListener("click", () => {
-    if (typeof window.beforeSignOut === "function") window.beforeSignOut();
-    window.location.href = "/logout";
-  });
-})();
-
 // burger menu CLAUDE
 (function () {
   const burger = document.getElementById("burgerBtn");
