@@ -29,7 +29,43 @@
   });
 })();
 
+confirmBtn.addEventListener("click", () => {
+    if (typeof window.beforeSignOut === "function") window.beforeSignOut();
+    window.location.href = "/logout";
+  });
+})();
+
+// burger menu CLAUDE
+(function () {
+  const burger = document.getElementById("burgerBtn");
+  const links  = document.getElementById("navLinks");
+  if (!burger || !links) return;
+
+  function setOpen(open) {
+    links.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  burger.addEventListener("click", e => {
+    e.stopPropagation();
+    setOpen(!links.classList.contains("open"));
+  });
+
+  links.addEventListener("click", e => {
+    if (e.target.closest("a")) setOpen(false);
+  });
+
+  document.addEventListener("click", e => {
+    if (links.classList.contains("open") && !e.target.closest("nav")) setOpen(false);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 640) setOpen(false);
+  });
+})();
+
 // universal settings !!!
+
 (function () {
   const DEFAULTS = {
     sound: true,
