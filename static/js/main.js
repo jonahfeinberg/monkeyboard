@@ -183,19 +183,36 @@ window.MB_ACH = (function () {
     // unique words
     { id:"unique_50",   tier:"bronze", name:"Vocabulary",             desc:"Reach 50 unique words.",    value:m=>m.uniqueWords, goal:50 },
     { id:"unique_100",  tier:"bronze", name:"English class is home",        desc:"Reach 100 unique words.",   value:m=>m.uniqueWords, goal:100 },
-    { id:"unique_250",  tier:"silver", name:"Well-Read Primate",      desc:"Reach 250 unique words.",   value:m=>m.uniqueWords, goal:250 },
-    { id:"unique_400",  tier:"silver",   name:"Bookworm",               desc:"Reach 400 unique words.",   value:m=>m.uniqueWords, goal:400 },
-    { id:"unique_500",  tier:"silver",   name:"Walking Dictionary",     desc:"Reach 500 unique words.",   value:m=>m.uniqueWords, goal:500 },
-    { id:"unique_750",  tier:"gold",   name:"Thesaurus Rex",          desc:"Reach 750 unique words.",   value:m=>m.uniqueWords, goal:750 },
-    { id:"unique_1000", tier:"gold",   name:"Every Word in the Book", desc:"Reach 1,000 unique words.", value:m=>m.uniqueWords, goal:1000 },
+    { id:"unique_250",  tier:"bronze", name:"Well-Read Primate",      desc:"Reach 250 unique words.",   value:m=>m.uniqueWords, goal:250 },
+    { id:"unique_400",  tier:"bronze",   name:"Bookworm",               desc:"Reach 400 unique words.",   value:m=>m.uniqueWords, goal:400 },
+    { id:"unique_500",  tier:"bronze",   name:"You must have a dictionary",     desc:"Reach 500 unique words.",   value:m=>m.uniqueWords, goal:500 },
+    { id:"unique_750",  tier:"silver",   name:"Thesaurus Monkeys",          desc:"Reach 750 unique words.",   value:m=>m.uniqueWords, goal:750 },
+    { id:"unique_1000", tier:"silver",   name:"Monkey geek", desc:"Reach 1,000 unique words.", value:m=>m.uniqueWords, goal:1000 },
+    { id:"unique_1500",  tier:"silver",      name:"Lexicon Explorer",        desc:"Reach 1,500 unique words.",   value:m=>m.uniqueWords, goal:1500 },
+    { id:"unique_2500",  tier:"silver",      name:"Word Collector",          desc:"Reach 2,500 unique words.",   value:m=>m.uniqueWords, goal:2500 },
+    { id:"unique_5000",  tier:"silver",  name:"No more ooh ooh ah ah",        desc:"Reach 5,000 unique words.",   value:m=>m.uniqueWords, goal:5000 },
+    { id:"unique_7500",  tier:"silver",  name:"Are we sure they're monkeys?",    desc:"Reach 7,500 unique words.",   value:m=>m.uniqueWords, goal:7500 },
+    { id:"unique_10000", tier:"gold",  name:"Walking Dictionary",       desc:"Reach 10,000 unique words.",  value:m=>m.uniqueWords, goal:10000 },
+    { id:"unique_15000", tier:"gold",   name:"Better vocabulary than most",       desc:"Reach 15,000 unique words.",  value:m=>m.uniqueWords, goal:15000 },
+    { id:"unique_20000", tier:"gold",   name:"Library of Babel...?",        desc:"Reach 20,000 unique words.",  value:m=>m.uniqueWords, goal:20000 },
+    { id:"unique_50000", tier:"gold",    name:"You need to stop now",          desc:"Reach 50,000 unique words.",  value:m=>m.uniqueWords, goal:50000 },
+    { id:"unique_75000", tier:"gold",    name:"Infinite Vocabulary",     desc:"Reach 75,000 unique words.",  value:m=>m.uniqueWords, goal:75000 },
+    { id:"unique_100000",tier:"gold", name:"Statistically impossible ;)",   desc:"Reach 100,000 unique words.", value:m=>m.uniqueWords, goal:100000 },
+    
 
     // monkeys at once
-    { id:"monkeys_2",  tier:"bronze", name:"Buddy System",     desc:"Run 2 monkeys at once.",  value:m=>m.monkeyCount, goal:2 },
-    { id:"monkeys_5",  tier:"bronze", name:"Gimme five!",            desc:"Run 5 monkeys at once.",  value:m=>m.monkeyCount, goal:5 },
-    { id:"monkeys_10", tier:"silver", name:"Full Cage",        desc:"Run 10 monkeys at once.", value:m=>m.monkeyCount, goal:10 },
-    { id:"monkeys_20", tier:"silver", name:"Infestation",      desc:"Run 20 monkeys at once.", value:m=>m.monkeyCount, goal:20 },
-    { id:"monkeys_30", tier:"silver", name:"This is a mob",       desc:"Run 30 monkeys at once.", value:m=>m.monkeyCount, goal:30 },
-    { id:"monkeys_50", tier:"silver", name:"Monkey go brrrr",    desc:"Run 50 monkeys at once.", value:m=>m.monkeyCount, goal:50 },
+    { id:"monkeys_2",    tier:"bronze", name:"Buddy System",         desc:"Run 2 monkeys at once.",     value:m=>m.monkeyCount, goal:2 },
+    { id:"monkeys_5",    tier:"bronze", name:"Gimme Five!",          desc:"Run 5 monkeys at once.",     value:m=>m.monkeyCount, goal:5 },
+    { id:"monkeys_10",   tier:"bronze", name:"Full Cage",            desc:"Run 10 monkeys at once.",    value:m=>m.monkeyCount, goal:10 },
+    { id:"monkeys_20",   tier:"bronze", name:"Infestation",          desc:"Run 20 monkeys at once.",    value:m=>m.monkeyCount, goal:20 },
+    { id:"monkeys_30",   tier:"silver", name:"This Is a Mob",        desc:"Run 30 monkeys at once.",    value:m=>m.monkeyCount, goal:30 },
+    { id:"monkeys_50",   tier:"silver", name:"Monkey Go Brrrr",      desc:"Run 50 monkeys at once.",    value:m=>m.monkeyCount, goal:50 },
+    { id:"monkeys_100",  tier:"silver", name:"Okay That's Enough",   desc:"Run 100 monkeys at once.",   value:m=>m.monkeyCount, goal:100 },
+    { id:"monkeys_250",  tier:"gold",   name:"Barrel of Monkeys",    desc:"Run 250 monkeys at once.",   value:m=>m.monkeyCount, goal:250 },
+    { id:"monkeys_500",  tier:"gold",   name:"Monkey Business",      desc:"Run 500 monkeys at once.",   value:m=>m.monkeyCount, goal:500 },
+    { id:"monkeys_1000", tier:"gold",   name:"Primate Army",         desc:"Run 1,000 monkeys at once.", value:m=>m.monkeyCount, goal:1000 },
+    { id:"monkeys_2500", tier:"gold",   name:"Monkey Apocalypse",    desc:"Run 2,500 monkeys at once.", value:m=>m.monkeyCount, goal:2500 },
+    { id:"monkeys_5000", tier:"gold",   name:"Planet of the Monkeys",desc:"Run 5,000 monkeys at once.", value:m=>m.monkeyCount, goal:5000 },
 
     // word eggs: short & common
     { id:"egg_the", tier:"bronze", name:"Ironically Common",  desc:"A monkey types \"the\".", value:m=>m.words.has("the")?1:0, goal:1 },
@@ -289,7 +306,7 @@ window.MB_ACH = (function () {
     { id:"egg_literature", tier:"gold", name:"Highbrow",        desc:"A monkey types \"literature\".", value:m=>m.words.has("literature")?1:0, goal:1 },
     { id:"egg_masterpiece",tier:"gold", name:"Accidental Genius",desc:"A monkey types \"masterpiece\".",value:m=>m.words.has("masterpiece")?1:0,goal:1 },
 
-    // combos
+    // secrets
     { id:"combo_started",     tier:"bronze", name:"Just Getting Started",  desc:"50 words with 2 monkeys running.",      value:m=>(m.totalWords>=50 && m.monkeyCount>=2)?1:0,                          goal:1 },
     { id:"combo_swarm",       tier:"silver", name:"Swarm Intelligence",    desc:"1,000 words with 10 monkeys running.",  value:m=>(m.totalWords>=1000 && m.monkeyCount>=10)?1:0,                       goal:1 },
     { id:"combo_onetrack",    tier:"silver", name:"One-Track Mind",        desc:"500 words with under 25 unique.",       value:m=>(m.totalWords>=500 && m.uniqueWords<25)?1:0,                         goal:1 },
